@@ -115,7 +115,7 @@ def save_image_data(images):
                 filepath = os.path.join(app.config['IMAGE_DATA_PATH'], 'T2FLAIR', "t2flair_{}.png".format(i))
             if i == 140:
                 print('hello')
-            io.imsave(filepath, im)
+            io.imsave(filepath, im, plugin='freeimage')
 
 
 def get_predictions(MODEL, images):
