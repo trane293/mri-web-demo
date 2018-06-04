@@ -3,3 +3,4 @@ upload/
 model/main_model.h5
 sample/
 predictions/
+model/isensee_main.h5

@@ -24,7 +24,7 @@ graph = None
 app = Flask(__name__, template_folder="templates", static_folder="static", static_url_path="")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SAMPLE_FOLDER'] = SAMPLE_FOLDER
-app.config['MODEL_PATH'] = './model/main_model.h5'
+app.config['MODEL_PATH'] = './model/isensee_main.h5'
 app.config['PREDICTION_PATH']= './predictions'
 
 app.secret_key = "super secret key"
