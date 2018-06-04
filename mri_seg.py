@@ -31,14 +31,14 @@ app.config['IMAGE_DATA_PATH'] = './static/image_data'
 app.secret_key = "super secret key"
 
 def clean_jpeg_dir():
-    os.system('rm -rf ./static/predictions/edema/*')
-    os.system('rm -rf ./static/predictions/enhancing/*')
-    os.system('rm -rf ./static/predictions/necrotic/*')
-    os.system('rm -rf ./upload/*')
-    os.system('rm -rf ./static/image_data/T1/*')
-    os.system('rm -rf ./static/image_data/T2/*')
-    os.system('rm -rf ./static/image_data/T1CE/*')
-    os.system('rm -rf ./static/image_data/T2FLAIR/*')
+    os.system('sudo rm -rf ./static/predictions/edema/*')
+    os.system('sudo rm -rf ./static/predictions/enhancing/*')
+    os.system('sudo rm -rf ./static/predictions/necrotic/*')
+    os.system('sudo rm -rf ./upload/*')
+    os.system('sudo rm -rf ./static/image_data/T1/*')
+    os.system('sudo rm -rf ./static/image_data/T2/*')
+    os.system('sudo rm -rf ./static/image_data/T1CE/*')
+    os.system('sudo rm -rf ./static/image_data/T2FLAIR/*')
 
 def get_model():
     global MODEL
