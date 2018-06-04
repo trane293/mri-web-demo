@@ -10,6 +10,13 @@ h1{
   font-size: 1.9rem;
   color:#34495e;
 }
+
+h4{
+  padding: 0 0 20px 0;
+  text-align: center;
+  color:#34495e;
+}
+
 .file-upload{
   display:block;
   text-align:center;
@@ -36,7 +43,9 @@ h1{
   display:inline-block;
   height:40px;
   line-height:40px;
+  width: 130px;
 }
+
 .file-upload .file-select .file-select-name{
   line-height:40px;
   display:inline-block;
@@ -121,6 +130,7 @@ input{
   align-content: center;
 
 }
+
 input[type=submit]{
   width: 80%;
   max-width: 400px;
