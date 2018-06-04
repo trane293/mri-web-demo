@@ -1,26 +1,60 @@
 <!doctype html>
+<html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<br>
-<input type="range" id="slider" value="0.0" min="0" max="154" step="1" />
-<br /><br />
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+<style>
+    body{
+        max-width:900px;
+    }
+    figure{
+  width:25%;
+  box-sizing: border-box;
+  padding: 2%;
+  float: left;
+  margin:0;
+}
+    input[type=range]{
+        width: 400px;
+        margin: 100px auto 20px auto;
+        padding:0px;
+        clear:both;
+    }
+    .cf::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+    .list{
+        width: 100%;
+        margin:0px;
+    }
+    .cap{
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    .list2{
+        width:75%;
+        padding: 0 1.5%;
+        box-sizing: border-box;
+        margin: auto;
 
-<!-- Segmentation Masks -->
-<figure>
-    <img src="{{ url_for('static',filename='predictions/enhancing/enh_0.png') }}" style='width:200px;height:200px;' id='img_enh'/>
-    <figcaption>Enhancing</figcaption>
-</figure>
+    }
+    .list2 figure{
+        width:33.33%;
+        margin: auto;
 
-<figure>
-    <img src="{{ url_for('static',filename='predictions/edema/ede_0.png') }}" style='width:200px;height:200px;' id='img_ede'/>
-    <figcaption>Edema</figcaption>
-</figure>
-
-<figure>
-    <img src="{{ url_for('static',filename='predictions/necrotic/nec_0.png') }}" style='width:200px;height:200px;' id='img_nec'/>
-    <figcaption>Necrotic</figcaption>
-</figure>
-
-<!-- Image Volumes -->
+    }
+    list2 figure{
+         float:none !important;
+    }
+    figure img{
+        max-width: 240px;
+        width: 100% !important;
+        height: auto !important;
+    }
+</style>
+<body>
+<div class="cf list">
 <figure>
     <img src="{{ url_for('static',filename='image_data/T1/t1_0.png') }}" style='width:200px;height:200px;' id='img_t1'/>
     <figcaption>T1</figcaption>
@@ -40,9 +74,30 @@
   <img src="{{ url_for('static',filename='image_data/T2FLAIR/t2flair_0.png') }}" style='width:200px;height:200px;' id='img_t2flair'/>
   <figcaption>T2FLAIR</figcaption>
 </figure>
+</div>
+<div class="list2 cf">
+<!-- Segmentation Masks -->
+<figure>
+    <img src="{{ url_for('static',filename='predictions/enhancing/enh_0.png') }}" style='width:200px;height:200px;' id='img_enh'/>
+    <figcaption>Enhancing</figcaption>
+</figure>
 
+<figure>
+    <img src="{{ url_for('static',filename='predictions/edema/ede_0.png') }}" style='width:200px;height:200px;' id='img_ede'/>
+    <figcaption>Edema</figcaption>
+</figure>
 
-slider value = <span id="sliderStatus">0</span>
+<figure>
+    <img src="{{ url_for('static',filename='predictions/necrotic/nec_0.png') }}" style='width:200px;height:200px;' id='img_nec'/>
+    <figcaption>Necrotic</figcaption>
+</figure>
+</div>
+<!-- Image Volumes -->
+<input type="range" id="slider" value="0.0" min="0" max="154" step="1" />
+
+<div class="cf cap">
+MRI Slice Index= <span id="sliderStatus">0</span>
+</div>
 <script>
 
 var i;
@@ -91,3 +146,5 @@ slider.oninput = function() {
 }
 
 </script>
+</body>
+</html>

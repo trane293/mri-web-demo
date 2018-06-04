@@ -132,3 +132,10 @@ input[type=submit]{
    cursor: pointer;
    margin:30px auto;
 }
+
+figure{
+  width:25%;
+  box-sizing: border-box;
+  padding: 2%;
+  float: left;
+}
