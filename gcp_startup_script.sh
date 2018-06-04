@@ -25,24 +25,24 @@ export HOME=/root
 
 # Install app dependencies
 cd /opt/app
-virtualenv /opt/app/7-gce/env
-/opt/app/7-gce/env/bin/pip install -r /opt/app/7-gce/requirements.txt
+virtualenv /opt/app/gui-proj/env
+/opt/app/gui-proj/env/bin/pip install -r /opt/app/gui-proj/requirements.txt
 
 # Make sure the pythonapp user owns the application code
-chown -R pythonapp:pythonapp /opt/app
+chown -R pythonapp:pythonapp /opt/app/gui-proj/
 
 # Configure supervisor to start gunicorn inside of our virtualenv and run the
 # application.
 cat >/etc/supervisor/conf.d/python-app.conf << EOF
 [program:pythonapp]
-directory=/opt/app/7-gce
-command=/opt/app/7-gce/env/bin/gunicorn mri-seg:app --bind 0.0.0.0:8080
+directory=/opt/app/gui-proj/
+command=/opt/app/gui-proj/env/bin/gunicorn mri-seg:app --bind 0.0.0.0:8080
 autostart=true
 autorestart=true
 user=pythonapp
 # Environment variables ensure that the application runs inside of the
 # configured virtualenv.
-environment=VIRTUAL_ENV="/opt/app/env/7-gce",PATH="/opt/app/7-gce/env/bin",\
+environment=VIRTUAL_ENV="/opt/app/gui-proj/env",PATH="/opt/app/gui-proj/env/bin",\
     HOME="/home/pythonapp",USER="pythonapp"
 stdout_logfile=syslog
 stderr_logfile=syslog
