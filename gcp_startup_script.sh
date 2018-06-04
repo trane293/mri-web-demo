@@ -11,7 +11,7 @@ service google-fluentd restart &
 # Install dependencies from apt
 apt-get update
 apt-get install -yq \
-    git build-essential supervisor python python-dev python-pip libffi-dev \
+    git build-essential gcc supervisor python python-dev python-pip libffi-dev \
     libssl-dev libfreeimage3 libfreeimage-dev
 
 # Create a pythonapp user. The application will run as this user.
