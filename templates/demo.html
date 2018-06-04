@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+<style>
+    body{
+        max-width:900px;
+    }
+    figure{
+  width:25%;
+  box-sizing: border-box;
+  padding: 2%;
+  float: left;
+  margin:0;
+}
+    input[type=range]{
+        width: 400px;
+        margin: 100px auto 20px auto;
+        padding:0px;
+        clear:both;
+    }
+    .cf::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+    .list{
+        width: 100%;
+        margin:0px;
+    }
+    .cap{
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    .list2{
+        width:75%;
+        padding: 0 1.5%;
+        box-sizing: border-box;
+        margin: auto;
+
+    }
+    .list2 figure{
+        width:33.33%;
+        margin: auto;
+
+    }
+    list2 figure{
+         float:none !important;
+    }
+    figure img{
+        max-width: 240px;
+        width: 100% !important;
+        height: auto !important;
+    }
+</style>
+<body>
+<div class="cf list">
+<figure>
+    <img src="{{ url_for('static',filename='demo_image_data/T1/t1_0.png') }}" style='width:200px;height:200px;' id='img_t1'/>
+    <figcaption>T1</figcaption>
+</figure>
+
+<figure>
+  <img src="{{ url_for('static',filename='demo_image_data/T2/t2_0.png') }}" style='width:200px;height:200px;' id='img_t2'/>
+  <figcaption>T2</figcaption>
+</figure>
+
+<figure>
+  <img src="{{ url_for('static',filename='demo_image_data/T1CE/t1ce_0.png') }}" style='width:200px;height:200px;' id='img_t1ce'/>
+  <figcaption>T1CE</figcaption>
+</figure>
+
+<figure>
+  <img src="{{ url_for('static',filename='demo_image_data/T2FLAIR/t2flair_0.png') }}" style='width:200px;height:200px;' id='img_t2flair'/>
+  <figcaption>T2FLAIR</figcaption>
+</figure>
+</div>
+<div class="list2 cf">
+<!-- Segmentation Masks -->
+<figure>
+    <img src="{{ url_for('static',filename='demo_predictions/enhancing/enh_0.png') }}" style='width:200px;height:200px;' id='img_enh'/>
+    <figcaption>Enhancing</figcaption>
+</figure>
+
+<figure>
+    <img src="{{ url_for('static',filename='demo_predictions/edema/ede_0.png') }}" style='width:200px;height:200px;' id='img_ede'/>
+    <figcaption>Edema</figcaption>
+</figure>
+
+<figure>
+    <img src="{{ url_for('static',filename='demo_predictions/necrotic/nec_0.png') }}" style='width:200px;height:200px;' id='img_nec'/>
+    <figcaption>Necrotic</figcaption>
+</figure>
+</div>
+<!-- Image Volumes -->
+<input type="range" id="slider" value="0.0" min="0" max="154" step="1" />
+
+<div class="cf cap">
+MRI Slice Index= <span id="sliderStatus">0</span>
+</div>
+<script>
+
+var i;
+var imageUrl_enh = new Array();
+var imageUrl_ede = new Array();
+var imageUrl_nec = new Array();
+
+var imageUrl_t1 = new Array();
+var imageUrl_t2 = new Array();
+var imageUrl_t1ce = new Array();
+var imageUrl_t2flair = new Array();
+
+pred_enh = "{{ url_for('static',filename='demo_predictions/enhancing/') }}";
+pred_ede = "{{ url_for('static',filename='demo_predictions/edema/') }}";
+pred_nec = "{{ url_for('static',filename='demo_predictions/necrotic/') }}";
+
+pred_t1 = "{{ url_for('static',filename='demo_image_data/T1/') }}";
+pred_t2 = "{{ url_for('static',filename='demo_image_data/T2/') }}";
+pred_t1ce = "{{ url_for('static',filename='demo_image_data/T1CE/') }}";
+pred_t2flair = "{{ url_for('static',filename='demo_image_data/T2FLAIR/') }}";
+
+
+for (i = 0; i < 155; i++) {
+    imageUrl_enh[i] = pred_enh + 'enh_' + i + '.png';
+    imageUrl_ede[i] = pred_ede + 'ede_' + i + '.png';
+    imageUrl_nec[i] = pred_nec + 'nec_' + i + '.png';
+
+    imageUrl_t1[i] = pred_t1 + 't1_' + i + '.png';
+    imageUrl_t2[i] = pred_t2 + 't2_' + i + '.png';
+    imageUrl_t1ce[i] = pred_t1ce + 't1ce_' + i + '.png';
+    imageUrl_t2flair[i] = pred_t2flair + 't2flair_' + i + '.png';
+}
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+    v = this.value;
+    $('#sliderStatus').html(v);
+    $("#img_enh").prop("src", imageUrl_enh[v]);
+    $("#img_ede").prop("src", imageUrl_ede[v]);
+    $("#img_nec").prop("src", imageUrl_nec[v]);
+
+    $("#img_t1").prop("src", imageUrl_t1[v]);
+    $("#img_t2").prop("src", imageUrl_t2[v]);
+    $("#img_t1ce").prop("src", imageUrl_t1ce[v]);
+    $("#img_t2flair").prop("src", imageUrl_t2flair[v]);
+}
+
+</script>
+</body>
+</html>

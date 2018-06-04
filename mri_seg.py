@@ -13,8 +13,6 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# io.use_plugin('freeimage')
-
 UPLOAD_FOLDER = './upload'
 SAMPLE_FOLDER = './sample'
 NUM_SLICES = 155
@@ -115,7 +113,7 @@ def save_image_data(images):
                 filepath = os.path.join(app.config['IMAGE_DATA_PATH'], 'T2FLAIR', "t2flair_{}.png".format(i))
             if i == 140:
                 print('hello')
-            io.imsave(filepath, im, plugin='freeimage')
+            io.imsave(filepath, im)
 
 
 def get_predictions(MODEL, images):
@@ -211,28 +209,7 @@ def predict():
 
 @app.route('/demo', methods=['POST'])
 def demo():
-    # global MODEL
-    # logger.debug('Loading demo data..')
-    #
-    # images = np.load(open('./sample/sample.npy', 'rb'))
-    # logger.debug('Sample loaded!')
-    #
-    # # save all lthe  images for viewing on the page
-    # logger.debug('Saving original image data to disk..')
-    #
-    # # we need to remove padding from  the saved image
-    # save_image_data(images[:,:,:,:,0:155])
-    # logger.debug('Image data saved!')
-    #
-    #
-    # logger.debug('Initialize prediction process..')
-    # predictions = get_predictions(MODEL, images)
-    #
-    # logger.debug('Saving predictions to disk..')
-    # save_predictions(predictions)
-    # logger.debug('Predictions saved!')
-
-    return redirect(url_for('show_results'))
+    return render_template('demo.html')
 
 @app.route('/uploads/')
 def uploaded_file():
@@ -289,4 +266,11 @@ def upload_file():
 
 if __name__ == '__main__':
     get_model()
-    app.run(debug=False)
+    import platform
+
+    # to make the code portable even on cedar,you need to add conditions here
+    node_name = platform.node()
+    if node_name == 'XPS15':
+        app.run(debug=True)
+    else:
+        app.run(host='0.0.0.0', port=80)
