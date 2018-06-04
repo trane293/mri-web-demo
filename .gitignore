@@ -4,3 +4,6 @@ model/main_model.h5
 sample/
 predictions/
 model/isensee_main.h5
+static/image_data
+static/predictions
+modules/dataloader.pyc

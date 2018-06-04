@@ -82,7 +82,7 @@ def loadData(data_dir, preprocess=False):
     out_shape = (240, 240)
 
     # create placeholders, currently only supports theano type convention (num_eg, channels, x, y, z)
-    images = np.empty((batch_size, num_sequences, out_shape[0], out_shape[1], num_slices)).astype(np.float32)
+    images = np.empty((batch_size, num_sequences, out_shape[0], out_shape[1], num_slices)).astype(np.int32)
 
     logger.info('starting to load images..')
     for imagefile in glob.glob(data_dir + '/*'):
@@ -111,7 +111,7 @@ def loadData(data_dir, preprocess=False):
 
         images[0, i, :, :, :] = pix_data_swapped
 
-    return images
+    return images.astype(np.float32)
 
 def standardize(images, findMeanVarOnly=True, saveDump=None, applyToTest=None):
     """

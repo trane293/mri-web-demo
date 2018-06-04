@@ -7,7 +7,7 @@ from model.isensee import open_model_with_hyper_and_history, custom_loss
 import tensorflow as tf
 import cPickle as pickle
 from modules.training_helpers import standardize
-from skimage import io, exposure, img_as_uint, img_as_float
+from skimage import io, exposure, img_as_uint, img_as_int, img_as_float
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -25,15 +25,20 @@ app = Flask(__name__, template_folder="templates", static_folder="static", stati
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SAMPLE_FOLDER'] = SAMPLE_FOLDER
 app.config['MODEL_PATH'] = './model/isensee_main.h5'
-app.config['PREDICTION_PATH']= './predictions'
+app.config['PREDICTION_PATH'] = './static/predictions'
+app.config['IMAGE_DATA_PATH'] = './static/image_data'
 
 app.secret_key = "super secret key"
 
 def clean_jpeg_dir():
-    os.system('rm -rf ./predictions/edema/*')
-    os.system('rm -rf ./predictions/enhancing/*')
-    os.system('rm -rf ./predictions/necrotic/*')
+    os.system('rm -rf ./static/predictions/edema/*')
+    os.system('rm -rf ./static/predictions/enhancing/*')
+    os.system('rm -rf ./static/predictions/necrotic/*')
     os.system('rm -rf ./upload/*')
+    os.system('rm -rf ./static/image_data/T1/*')
+    os.system('rm -rf ./static/image_data/T2/*')
+    os.system('rm -rf ./static/image_data/T1CE/*')
+    os.system('rm -rf ./static/image_data/T2FLAIR/*')
 
 def get_model():
     global MODEL
@@ -76,6 +81,43 @@ def save_predictions(predictions):
             io.imsave(filepath, im)
 
 
+def save_image_data(images):
+
+    t1 = images[0, 0,]
+    t2 = images[0, 1,]
+    t1ce = images[0, 2,]
+    t2flair = images[0, 3,]
+
+    arr_dict = {'t1': t1, 't2': t2, 't1ce': t1ce, 't2flair': t2flair}
+
+    # now we have 4 3D volumes. We save it as jpg files
+
+    for key, npa in arr_dict.items():
+        for i in range(0, images.shape[-1]):
+            im = npa[:,:,i]
+
+            # if this a black pixel-only mask
+            vals = np.unique(im)
+
+            if vals.shape != (1,):
+                im = exposure.rescale_intensity(im, out_range='float')
+            else:
+                im[:] = 0
+            im = img_as_float(im)
+
+            if key == 't1':
+                filepath = os.path.join(app.config['IMAGE_DATA_PATH'], 'T1', "t1_{}.png".format(i))
+            elif key == 't2':
+                filepath = os.path.join(app.config['IMAGE_DATA_PATH'], 'T2', "t2_{}.png".format(i))
+            elif key == 't1ce':
+                filepath = os.path.join(app.config['IMAGE_DATA_PATH'], 'T1CE', "t1ce_{}.png".format(i))
+            elif key == 't2flair':
+                filepath = os.path.join(app.config['IMAGE_DATA_PATH'], 'T2FLAIR', "t2flair_{}.png".format(i))
+            if i == 140:
+                print('hello')
+            io.imsave(filepath, im, plugin='freeimage')
+
+
 def get_predictions(MODEL, images):
     logger.debug('Starting prediction process!')
     # predict using the whole volume
@@ -98,7 +140,7 @@ def pad_image(images):
     '''
     tmp = list(np.shape(images))
     tmp[-1] = 160 # change it to 160
-    padded_image = np.zeros(tmp)
+    padded_image = np.zeros(tmp).astype(np.float32)
     padded_image[:,:,:,:,0:155] = images
     return padded_image
 
@@ -121,6 +163,11 @@ def prepare_data():
     # standardize the images
     logger.debug('standardizing data..')
     images = standardize(images, applyToTest=mean_var)
+
+    # save all lthe  images for viewing on the page
+    logger.debug('Saving original image data to disk..')
+    save_image_data(images)
+    logger.debug('Image data saved!')
 
     logger.debug('padding images..')
     padded_im = pad_image(images)
@@ -169,6 +216,14 @@ def demo():
 
     images = np.load(open('./sample/sample.npy', 'rb'))
     logger.debug('Sample loaded!')
+
+    # save all lthe  images for viewing on the page
+    logger.debug('Saving original image data to disk..')
+
+    # we need to remove padding from  the saved image
+    save_image_data(images[:,:,:,:,0:155])
+    logger.debug('Image data saved!')
+
 
     logger.debug('Initialize prediction process..')
     predictions = get_predictions(MODEL, images)
