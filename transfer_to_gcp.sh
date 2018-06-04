@@ -1,1 +1,1 @@
-scp -r -i ~/.ssh/id_rsa ../gui-proj/ anmol@35.237.3.223:/home/anmol/
+scp -r -i ~/.ssh/id_rsa ../gui-proj/ anmol@35.237.3.223:/opt/app

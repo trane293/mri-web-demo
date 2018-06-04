@@ -289,4 +289,4 @@ def upload_file():
 
 if __name__ == '__main__':
     get_model()
-    app.run(debug=True)
+    app.run(debug=False)
