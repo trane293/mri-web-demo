@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<body>
+<form method="post" enctype="multipart/form-data">
+    <h1>Select the files to upload</h1>
+    <div class="file-upload">
+    <div class="file-select">
+      <div class="file-select-button">Choose T1 File</div>
+      <div class="file-select-name" id="fileToUpload1noFile">No file chosen...</div>
+      <input type="file" name="t1" id="t1">
+      </div>
+    </div>
+    <div class="file-upload">
+    <div class="file-select">
+      <div class="file-select-button">Choose T2 File</div>
+      <div class="file-select-name" id="fileToUpload2noFile">No file chosen...</div>
+      <input type="file" name="t2" id="t2">
+      </div>
+    </div>
+    <div class="file-upload">
+    <div class="file-select">
+      <div class="file-select-button">Choose T1ce File</div>
+      <div class="file-select-name" id="fileToUpload3noFile">No file chosen...</div>
+      <input type="file" name="t1ce" id="t1ce">
+      </div>
+    </div>
+  <div class="file-upload">
+  <div class="file-select">
+    <div class="file-select-button">Choose T2Flair File</div>
+    <div class="file-select-name" id="fileToUpload4noFile">No file chosen...</div>
+    <input type="file" name="t2flair" id="t2flair">
+    </div>
+  </div>
+    <input type="submit" value="Upload Files" name="submit">
+</form>
+<form action="/demo" method="post"> <!-- or method="post" -->
+        <input type="submit" value="Show Demo" name="demo1" >
+</form>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
