@@ -13,7 +13,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-io.use_plugin('freeimage')
+# io.use_plugin('freeimage')
 
 UPLOAD_FOLDER = './upload'
 SAMPLE_FOLDER = './sample'

@@ -8,4 +8,4 @@ source ~/.bashrc
 mkvirtualenv gui-proj
 workon gui-proj
 pip install -r requirements.txt
-sudo pip install git+https://www.github.com/keras-team/keras-contrib.git
+pip install git+https://www.github.com/keras-team/keras-contrib.git
