@@ -10,6 +10,8 @@ from modules.training_helpers import standardize
 from skimage import io, exposure, img_as_uint, img_as_int, img_as_float
 import logging
 
+io.use_plugin('freeimage')
+
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
