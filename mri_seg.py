@@ -211,26 +211,26 @@ def predict():
 
 @app.route('/demo', methods=['POST'])
 def demo():
-    global MODEL
-    logger.debug('Loading demo data..')
-
-    images = np.load(open('./sample/sample.npy', 'rb'))
-    logger.debug('Sample loaded!')
-
-    # save all lthe  images for viewing on the page
-    logger.debug('Saving original image data to disk..')
-
-    # we need to remove padding from  the saved image
-    save_image_data(images[:,:,:,:,0:155])
-    logger.debug('Image data saved!')
-
-
-    logger.debug('Initialize prediction process..')
-    predictions = get_predictions(MODEL, images)
-
-    logger.debug('Saving predictions to disk..')
-    save_predictions(predictions)
-    logger.debug('Predictions saved!')
+    # global MODEL
+    # logger.debug('Loading demo data..')
+    #
+    # images = np.load(open('./sample/sample.npy', 'rb'))
+    # logger.debug('Sample loaded!')
+    #
+    # # save all lthe  images for viewing on the page
+    # logger.debug('Saving original image data to disk..')
+    #
+    # # we need to remove padding from  the saved image
+    # save_image_data(images[:,:,:,:,0:155])
+    # logger.debug('Image data saved!')
+    #
+    #
+    # logger.debug('Initialize prediction process..')
+    # predictions = get_predictions(MODEL, images)
+    #
+    # logger.debug('Saving predictions to disk..')
+    # save_predictions(predictions)
+    # logger.debug('Predictions saved!')
 
     return redirect(url_for('show_results'))
 
@@ -269,6 +269,8 @@ def upload_file():
                 t2_file and check_extension(t2_file.filename) and \
                 t1ce_file and check_extension(t1ce_file.filename) and \
                 t2flair_file and check_extension(t2flair_file.filename):
+            # clean directories before uploading
+            clean_jpeg_dir()
             t1_filename = secure_filename(t1_file.filename)
             t1_file.save(os.path.join(app.config['UPLOAD_FOLDER'], t1_filename))
 
@@ -286,6 +288,5 @@ def upload_file():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    clean_jpeg_dir()
     get_model()
     app.run(debug=True)
