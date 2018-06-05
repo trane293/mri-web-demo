@@ -249,9 +249,6 @@ def upload_file():
                 t1ce_file and check_extension(t1ce_file.filename) and \
                 t2flair_file and check_extension(t2flair_file.filename):
             # clean directories before uploading
-            logger.debug('Cleaning data directory..')
-            clean_jpeg_dir()
-            logger.debug('Data directory empty')
             t1_filename = secure_filename(t1_file.filename)
             t1_file.save(os.path.join(app.config['UPLOAD_FOLDER'], t1_filename))
 
@@ -270,6 +267,9 @@ def upload_file():
 
 if __name__ == '__main__':
     get_model()
+    logger.debug('Cleaning data directory..')
+    clean_jpeg_dir()
+    logger.debug('Data directory empty')
     import platform
 
     # to make the code portable even on cedar,you need to add conditions here

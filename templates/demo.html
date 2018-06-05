@@ -56,39 +56,39 @@
 <body>
 <div class="cf list">
 <figure>
-    <img src="{{ url_for('static',filename='demo_image_data/T1/t1_0.png') }}" style='width:200px;height:200px;' id='img_t1'/>
+    <img src="{{ url_for('static',filename='demo_id/T1/t1_0.png') }}" style='width:200px;height:200px;' id='img_t1'/>
     <figcaption>T1</figcaption>
 </figure>
 
 <figure>
-  <img src="{{ url_for('static',filename='demo_image_data/T2/t2_0.png') }}" style='width:200px;height:200px;' id='img_t2'/>
+  <img src="{{ url_for('static',filename='demo_id/T2/t2_0.png') }}" style='width:200px;height:200px;' id='img_t2'/>
   <figcaption>T2</figcaption>
 </figure>
 
 <figure>
-  <img src="{{ url_for('static',filename='demo_image_data/T1CE/t1ce_0.png') }}" style='width:200px;height:200px;' id='img_t1ce'/>
+  <img src="{{ url_for('static',filename='demo_id/T1CE/t1ce_0.png') }}" style='width:200px;height:200px;' id='img_t1ce'/>
   <figcaption>T1CE</figcaption>
 </figure>
 
 <figure>
-  <img src="{{ url_for('static',filename='demo_image_data/T2FLAIR/t2flair_0.png') }}" style='width:200px;height:200px;' id='img_t2flair'/>
+  <img src="{{ url_for('static',filename='demo_id/T2FLAIR/t2flair_0.png') }}" style='width:200px;height:200px;' id='img_t2flair'/>
   <figcaption>T2FLAIR</figcaption>
 </figure>
 </div>
 <div class="list2 cf">
 <!-- Segmentation Masks -->
 <figure>
-    <img src="{{ url_for('static',filename='demo_predictions/enhancing/enh_0.png') }}" style='width:200px;height:200px;' id='img_enh'/>
+    <img src="{{ url_for('static',filename='demo_pr/enhancing/enh_0.png') }}" style='width:200px;height:200px;' id='img_enh'/>
     <figcaption>Enhancing</figcaption>
 </figure>
 
 <figure>
-    <img src="{{ url_for('static',filename='demo_predictions/edema/ede_0.png') }}" style='width:200px;height:200px;' id='img_ede'/>
+    <img src="{{ url_for('static',filename='demo_pr/edema/ede_0.png') }}" style='width:200px;height:200px;' id='img_ede'/>
     <figcaption>Edema</figcaption>
 </figure>
 
 <figure>
-    <img src="{{ url_for('static',filename='demo_predictions/necrotic/nec_0.png') }}" style='width:200px;height:200px;' id='img_nec'/>
+    <img src="{{ url_for('static',filename='demo_pr/necrotic/nec_0.png') }}" style='width:200px;height:200px;' id='img_nec'/>
     <figcaption>Necrotic</figcaption>
 </figure>
 </div>
@@ -110,14 +110,14 @@ var imageUrl_t2 = new Array();
 var imageUrl_t1ce = new Array();
 var imageUrl_t2flair = new Array();
 
-pred_enh = "{{ url_for('static',filename='demo_predictions/enhancing/') }}";
-pred_ede = "{{ url_for('static',filename='demo_predictions/edema/') }}";
-pred_nec = "{{ url_for('static',filename='demo_predictions/necrotic/') }}";
+pred_enh = "{{ url_for('static',filename='demo_pr/enhancing/') }}";
+pred_ede = "{{ url_for('static',filename='demo_pr/edema/') }}";
+pred_nec = "{{ url_for('static',filename='demo_pr/necrotic/') }}";
 
-pred_t1 = "{{ url_for('static',filename='demo_image_data/T1/') }}";
-pred_t2 = "{{ url_for('static',filename='demo_image_data/T2/') }}";
-pred_t1ce = "{{ url_for('static',filename='demo_image_data/T1CE/') }}";
-pred_t2flair = "{{ url_for('static',filename='demo_image_data/T2FLAIR/') }}";
+pred_t1 = "{{ url_for('static',filename='demo_id/T1/') }}";
+pred_t2 = "{{ url_for('static',filename='demo_id/T2/') }}";
+pred_t1ce = "{{ url_for('static',filename='demo_id/T1CE/') }}";
+pred_t2flair = "{{ url_for('static',filename='demo_id/T2FLAIR/') }}";
 
 
 for (i = 0; i < 155; i++) {
