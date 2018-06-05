@@ -210,7 +210,7 @@ def predict():
     return redirect(url_for('show_results'))
 
 
-@app.route('/demo', methods=['POST'])
+@app.route('/demo', methods=['GET', 'POST'])
 def demo():
     return render_template('demo.html')
 
