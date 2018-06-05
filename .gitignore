@@ -1,6 +1,8 @@
 .idea/
 upload/
 model/main_model.h5
+model/*.h5
+model/*.p
 sample/
 predictions/
 model/isensee_main.h5

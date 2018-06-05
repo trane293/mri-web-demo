@@ -24,10 +24,10 @@ graph = None
 app = Flask(__name__, template_folder="templates", static_folder="static", static_url_path="")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SAMPLE_FOLDER'] = SAMPLE_FOLDER
-app.config['MODEL_PATH'] = './model/isensee_main.h5'
+app.config['MODEL_PATH'] = './model/isensee_combined.h5'
 app.config['PREDICTION_PATH'] = './static/predictions'
 app.config['IMAGE_DATA_PATH'] = './static/image_data'
-
+app.config['MeanVarFilepath'] = './model/combined_data_mean_var.p'
 app.secret_key = "super secret key"
 
 def clean_jpeg_dir():
@@ -159,7 +159,7 @@ def prepare_data():
 
     # open mean/var file
     logger.debug('loading mean/var file..')
-    mean_var = pickle.load(open('./model/BRATS2018_HDF5_Datasetstraining_data_hgg_mean_var.p', 'rb'))
+    mean_var = pickle.load(open(app.config['MeanVarFilepath'], 'rb'))
 
     # standardize the images
     logger.debug('standardizing data..')
