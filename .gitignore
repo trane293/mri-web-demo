@@ -7,6 +7,5 @@ model/isensee_main.h5
 static/image_data
 static/predictions
 modules/dataloader.pyc
-static/demo_image_data/
-static/demo_predictions/
-
+static/demo_id/
+static/demo_pr/
