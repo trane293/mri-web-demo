@@ -62,7 +62,7 @@ keras-contrib==2.0.8
 kiwisolver==1.0.1
 lockfile==0.12.2
 lxml==3.5.0
-Mako==1.0.3
+Mako==1.2.2
 Markdown==2.6.11
 MarkupSafe==1.0
 matplotlib==2.2.2
